@@ -1,2 +1,2 @@
-# OpenFcst0.2
-Release version 2.0 of OpenFcst
+# OpenFCST Release v0.2
+Release version 0.2 of OpenFCST
