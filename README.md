@@ -1,7 +1,5 @@
-# OpenFCST Release v0.2
-Release version 0.2 of OpenFCST
-
 # OpenFCST - Open Source Fuel Cell Simulation Toolkit
+Release 0.2 (April 2015)
 
 ## What is OpenFCST?
 
