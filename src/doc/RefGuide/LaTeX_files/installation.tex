@@ -1,0 +1,89 @@
+%%===============================================================
+%%===============================================================
+\chapter{Installation}
+%%===============================================================
+%%===============================================================
+% Authors: M. Secanell and Chad Balen.
+%%===============================================================
+
+%%===============================================================
+\section{Downloading OpenFCST}
+%%===============================================================
+
+\subsection{Users}
+
+\subsubsection{Download a .tar file}
+OpenFCST can be found at the  \htmladdnormallink{OpenFCST}{http://www.openfcst.org/} website. In the download section you will be able to find and download a .tar file of the latest release. 
+
+\subsubsection{Download from GitHub}
+The latest release of OpenFCST can also be downloaded from \htmladdnormallink{OpenFCST}{https://github.com/OpenFcst/OpenFcst0.2} on GitHub.
+
+
+%%===============================================================
+\section{Installing OpenFCST} \label{installing_fcst}
+%%===============================================================
+
+\subsection{System requirements}
+
+OpenFCST is developed on Linux and compiled using the GCC compiler. OpenFCST developers perform nightly compilation tests on the following operating systems:
+\begin{itemize}
+ \item OpenSUSE 13.1 (evergreen) and 13.2;
+ \item Ubuntu 14.04.1 (long time support).
+\end{itemize}
+These are the operating systems that the OpenFCST developers recommend. 
+
+If you would like to try to run the code under Windows environment, our recommendation is to install a VirtualBox with OpenSUSE and then, install and run OpenFCST on the virtual machine.
+
+The following software needs to also be installed in your computer in order for OpenFCST to compile:
+\begin{itemize}
+ \item GNU make and C++11 support, gcc version 4.7 or later (4.8.1 Recommended)
+ \item GCC
+ \item BLAS and LAPACK libraries 
+ \item OpenMPI compiler
+ \item gfortran compiler
+ \item Bison
+ \item qt4-designer and libqt4
+ \item For generating the documentation: DOxygen and Sphinx
+ \item Boost; the specific packages are iostreams, serialization, system, thread, 
+       filesystem, regex, signals, \& program\_options)
+ \item FLEX (For Dakota)
+ \item Python Packages: SciPy, NumPy, ipython, Sphinx, evtk, vtk, mayavi, matplotlib(with backends)
+ \item libconfig-devel and libconfig++-devel
+\end{itemize}
+
+In addition, the following packages might be useful if you are planning on developing new classes for OpenFCST:
+\begin{itemize}
+  \item For debugging programs, we have found that the GNU debugger GDB is an invaluable tool. GDB is a text-based tool not always easy to use; kdbg is one of many graphical user interfaces for it. \item Most integrated development environments like KDevelop or Eclipse have built in debuggers as well.
+\end{itemize}
+
+If you check the OpenFCST folder, you will find install scripts for OpenSUSE and Ubuntu
+to help install all necessary packages.
+
+\subsection{OpenSUSE 13.1 and 13.2}
+Before running OpenFCST on a new machine if Sphinx is installed then in terminal go into src/examples/ and 
+execute the dependencies.sh file. This will install all necessary python dependencies. 
+
+\subsection{Ubuntu 14.04}
+To install necessary packages on Ubuntu 14.04 please execute the openFCST\_install\_Ubuntu1404.sh script through terminal.
+
+\subsection{Installation steps}
+Fuel Cell Simulation Toolbox is a fuel cell simulation package developed using several open-source libraries 
+such as the deal.II libraries, DAKOTA and COLDAE. In order to run 
+without any difficulties, OpenFCST needs to compile and link to all these applications which are provided with 
+the code in the folder src/contrib. Please note that each package is distributed under a different license. 
+
+OpenFCST contains a script to compile all packages simultaneously. To compile OpenFCST and all other libraries use the following:
+\begin{lstlisting}
+$./openFCST_install --with-dakota --cores=4
+\end{lstlisting}
+
+If some packages such as p4est, METIS, and PETSc are not in the src/contrib folder, then OpenFCST will download them from the Internet for you.  Since Dakota is not automatically installed you must specify the flag shown above for OpenFCST to install Dakota. Then CMake will install it and make the necessary changes to it, so Dakota works with OpenFCST. Since MPI is mandatory and CMake finds OpenMPI for you we do not need to specify any flag to tell CMake where to find it.
+Finally, we select to compile on four cores to speed up the compilation process. 
+
+The install script assumes the default path for the OpenMPI compiler and that all the libraries are in \texttt{src/contrib}. If you already have a version of deal.II and you would like to use that version, use the flags \texttt{--deal-dir}. Please check the src/README for any necessary changes that must be made to deal.ii for it to work with OpenFCST. For more information on the script options, type
+\begin{lstlisting}
+$./openFCST_install --help
+\end{lstlisting}
+
+%%===============================================================
+%%===============================================================

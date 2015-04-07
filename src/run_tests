@@ -1,0 +1,34 @@
+#!/bin/bash
+
+######################################################################
+# Run the tests.cmake file using ctest and open the results summary
+# in the default text editor. More information on the tests will be
+# given in the tests_output.log file. Run this script by navigating 
+# to the fcst folder and calling 
+# $ ./run_tests 
+# in a terminal
+
+######################################################################
+
+source fcst_env.sh
+
+#Test for python packages
+python test/testPy.py
+
+if [ "$?" != "0" ]; then
+  echo "Necessary python packages are missing!"
+fi
+
+rm test/config.txt
+
+run_directory=`pwd`
+
+ctest -S tests.cmake
+
+mv test/build*/Testing/Temporary/LastTest_* $run_directory/tests_output.log
+
+rm test/build*/Testing/Temporary/*
+
+xdg-open tests_summary.log &> /dev/null
+
+rm test/config.txt

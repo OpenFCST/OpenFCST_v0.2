@@ -1,0 +1,58 @@
+#! /bin/bash
+#---------------------------------------------------------------------------
+#
+#    FCST: Fuel Cell Simulation Toolbox
+#
+#    Copyright (C) 2006-13 by Energy Systems Design Laboratory, University of Alberta
+#
+#    This software is distributed under the MIT License.
+#    For more information, see the README file in /doc/LICENSE
+#
+#---------------------------------------------------------------------------
+
+####################### 
+# 
+# OpenFCST Bash File
+#
+# This script alters Dakota's src code
+# and CMakeLists.txt file so it can be 
+# installed by CMake
+#
+# Developer: Chad Balen, 2014
+#
+#######################
+
+#Get path to Dakota's TOLS.C file that needs to be changed
+TOLSPath=`echo "$*" | perl -n -e 'm/--tols-path=(\S+)/; print $1'`
+
+#Get path to Dakota's CMakeLists.txt file to change
+CMakeMainPath=`echo "$*" | perl -n -e 'm/--cmake-main-path=(\S+)/; print $1'`
+
+#If user downloads Dakota from internet need to change
+#The number of backtracks in the OPT++ algorithm should be increased. Before
+#configuring, go to Dakota/packages/OPTPP/src/Base/TOLS.c and change 
+#"max_backiter = 5" to a minimum of 20. Backtracks will generally not
+#exceed 5-10 but can be greater for optimization in non-linear regions
+sed -i "55s|.*|  max_backiter   = 20;                   // Maximum number of backtracks|" $TOLSPath
+
+#Dakota libraries return don't link to each other so either you have to then change your systems
+#LD_LIBRARY_PATH or be insert this code into Dakota CMakeLists.txt before compiled
+sed -i "21a\# use, i.e. don't skip the full RPATH for the build tree" $CMakeMainPath
+sed -i "22a\SET(CMAKE_SKIP_BUILD_RPATH  FALSE)" $CMakeMainPath
+sed -i "23a\ " $CMakeMainPath
+sed -i "24a\# when building, don't use the install RPATH already" $CMakeMainPath
+sed -i "25a\# (but later on when installing)" $CMakeMainPath
+sed -i "26a\SET(CMAKE_BUILD_WITH_INSTALL_RPATH FALSE) " $CMakeMainPath
+sed -i "27a\ " $CMakeMainPath
+sed -i "28a\SET(CMAKE_INSTALL_RPATH "\${CMAKE_INSTALL_PREFIX}/lib")" $CMakeMainPath
+sed -i "29a\ " $CMakeMainPath
+sed -i "30a\# add the automatically determined parts of the RPATH" $CMakeMainPath
+sed -i "31a\# which point to directories outside the build tree to the install RPATH" $CMakeMainPath
+sed -i "32a\SET(CMAKE_INSTALL_RPATH_USE_LINK_PATH TRUE)" $CMakeMainPath
+sed -i "33a\ " $CMakeMainPath
+sed -i "34a\# the RPATH to be used when installing, but only if it's not a system directory" $CMakeMainPath
+sed -i "35a\LIST(FIND CMAKE_PLATFORM_IMPLICIT_LINK_DIRECTORIES "\${CMAKE_INSTALL_PREFIX}/lib" isSystemDir)" $CMakeMainPath
+sed -i "36a\IF("\${isSystemDir}" STREQUAL "-1")" $CMakeMainPath
+sed -i "37a\   SET(CMAKE_INSTALL_RPATH "\${CMAKE_INSTALL_PREFIX}/lib")" $CMakeMainPath
+sed -i "38a\ENDIF("\${isSystemDir}" STREQUAL "-1")" $CMakeMainPath
+sed -i "39a\ " $CMakeMainPath

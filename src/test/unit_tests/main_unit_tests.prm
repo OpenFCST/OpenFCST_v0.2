@@ -1,0 +1,18 @@
+######################################################################
+#
+#  This file runs the unit tests.
+#
+#
+######################################################################
+
+subsection Simulator
+  set Analysis type = UnitTests
+end
+
+subsection Logfile
+ set Logfile name = logfile.log
+ set FileDepth    = 10000
+ set ConsoleDepth = 10000
+ set Time         = false
+end
+
