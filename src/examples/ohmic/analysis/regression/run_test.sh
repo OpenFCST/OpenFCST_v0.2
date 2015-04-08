@@ -1,3 +1,5 @@
+#!/bin/bash
+
 ##############################
 #
 # Note: This script is expected to be run from /test
@@ -7,8 +9,6 @@
 # If you want to check current directory: echo ${PWD}
 #
 ##############################
-
-#!/bin/bash
 
 # Define name of test:
 test_name="AppOhmic>>Regression"
@@ -21,7 +21,7 @@ cd $path/examples/ohmic/analysis
 rm solution.dat
 
 # Load the test function:
-source "$path/test/test_function.sh"
+. $path/test/test_function.sh
 
 # Call application:
 $path/bin/fuel_cell-3d.bin main.prm
