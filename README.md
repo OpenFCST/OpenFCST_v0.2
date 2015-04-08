@@ -16,9 +16,9 @@ OpenFCST can be either downloaded from the OpenFCST website, i.e., http://www.op
 
 ### Requirements:
 
-OpenFCST is developed on a Linux operating system using the GNU GCC compiler. It uses our own CMake scripts and the contributing libraries CMake scripts, such as the deal.II (www.dealii.org) script, to configure and compile the library. It supports at least the following platform:
-OpenSUSE 12.3 and 13.1
-Ubuntu 14.04
+OpenFCST is developed on a Linux operating system using the GNU GCC compiler. It uses our own CMake scripts and the contributing libraries CMake scripts, such as the deal.II (www.dealii.org) script, to configure and compile the library. It supports at least the following platforms:
+OpenSUSE 13.1 and 13.2
+Ubuntu 14.04.1
 The following software needs to also be installed on your computer in order for FCST to compile (make sure to have the development versions as well):
 
 1. CMake
